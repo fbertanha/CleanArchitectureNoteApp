@@ -4,7 +4,11 @@ import android.app.Application
 import androidx.room.Room
 import com.plcoding.cleanarchitecturenoteapp.featurenote.data.datasource.NoteDao
 import com.plcoding.cleanarchitecturenoteapp.featurenote.data.datasource.NoteDatabase
+import com.plcoding.cleanarchitecturenoteapp.featurenote.data.mapper.Mapper
+import com.plcoding.cleanarchitecturenoteapp.featurenote.data.mapper.NoteMapper
+import com.plcoding.cleanarchitecturenoteapp.featurenote.data.dto.NoteDto
 import com.plcoding.cleanarchitecturenoteapp.featurenote.data.repository.NoteRepositoryImpl
+import com.plcoding.cleanarchitecturenoteapp.featurenote.domain.model.Note
 import com.plcoding.cleanarchitecturenoteapp.featurenote.domain.repository.NoteRepository
 import dagger.Module
 import dagger.Provides
@@ -37,7 +41,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteRepository(dao: NoteDao): NoteRepository {
-        return NoteRepositoryImpl(dao)
+    fun provideNoteRepository(dao: NoteDao, noteMapper: Mapper<Note, NoteDto>): NoteRepository {
+        return NoteRepositoryImpl(dao, noteMapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNoteMapper(): Mapper<Note, NoteDto> {
+        return NoteMapper()
     }
 }

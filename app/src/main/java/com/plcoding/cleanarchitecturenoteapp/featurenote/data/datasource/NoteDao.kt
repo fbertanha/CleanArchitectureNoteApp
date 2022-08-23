@@ -1,7 +1,7 @@
 package com.plcoding.cleanarchitecturenoteapp.featurenote.data.datasource
 
 import androidx.room.*
-import com.plcoding.cleanarchitecturenoteapp.featurenote.domain.model.Note
+import com.plcoding.cleanarchitecturenoteapp.featurenote.data.dto.NoteDto
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -10,15 +10,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * FROM note")
-    fun getNotes(): Flow<List<Note>>
+    @Query("SELECT * FROM notes")
+    fun getNotes(): Flow<List<NoteDto>>
 
-    @Query("SELECT * FROM note where id = :id")
-    suspend fun getNoteById(id: Int): Note?
+    @Query("SELECT * FROM notes where id = :id")
+    suspend fun getNoteById(id: Int): NoteDto?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNote(note: Note)
+    suspend fun insertNote(note: NoteDto)
 
     @Delete
-    suspend fun deleteNote(note: Note)
+    suspend fun deleteNote(note: NoteDto)
 }
