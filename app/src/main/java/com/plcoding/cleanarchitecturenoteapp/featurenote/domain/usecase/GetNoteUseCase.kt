@@ -14,6 +14,6 @@ class GetNoteUseCase @Inject constructor(
 
     suspend operator fun invoke(id: Int): Note {
         return repository.getNoteById(id)
-            ?: throw NoteNotFoundException("Not found any Note with the '$id' id")
+            ?: throw NoteNotFoundException("Not found any Note with id '$id'")
     }
 }
